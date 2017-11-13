@@ -2,52 +2,55 @@
   (:require [clojure.test :refer :all]
             [bankocr.core :refer :all]))
 
-(def one ["   "
-          "  |"
-          "  |"])
+(def one
+  ["   "
+   "  |"
+   "  |"])
 
-(def two [" _ "
-          " _|"
-          "|_ "])
+(def two
+  [" _ "
+   " _|"
+   "|_ "])
 
-(def three [" _ "
-            " _|"
-            " _|"])
+(def three
+  [" _ "
+   " _|"
+   " _|"])
 
-(def four ["   "
-           "|_|"
-           "  |"
-           ])
+(def four
+  ["   "
+   "|_|"
+   "  |"])
 
-(def five [" _ "
-           "|_ "
-           " _|"
-           ])
+(def five
+  [" _ "
+   "|_ "
+   " _|"])
 
-(def six [" _ "
-          "|_ "
-          "|_|"
-          ])
+(def six
+  [" _ "
+   "|_ "
+   "|_|"])
 
-(def seven [" _ "
-            "  |"
-            "  |"
-            ])
+(def seven
+  [" _ "
+   "  |"
+   "  |"])
 
-(def eight [" _ "
-            "|_|"
-            "|_|"
-            ])
+(def eight
+  [" _ "
+   "|_|"
+   "|_|"])
 
-(def nine [" _ "
-           "|_|"
-           " _|"
-           ])
+(def nine
+  [" _ "
+   "|_|"
+   " _|"])
 
-(def zero [" _ "
-           "| |"
-           "|_|"
-           ])
+(def zero
+  [" _ "
+   "| |"
+   "|_|"])
 
 (def lcd-digits
   {one   \1
@@ -107,8 +110,8 @@
                              " _|"]))))
   (testing "zero is recognized"
     (is (= \0 (parse-number [" _ "
-                            "| |"
-                            "|_|"])))))
+                             "| |"
+                             "|_|"])))))
 
 (defn- head-digit [scanned-account]
   (conj []
@@ -134,4 +137,3 @@
     (is (= "123456789" (parse-account ["    _  _     _  _  _  _  _ "
                                        "  | _| _||_||_ |_   ||_||_|"
                                        "  ||_  _|  | _||_|  ||_| _|"])))))
-
