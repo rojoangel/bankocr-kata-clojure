@@ -124,7 +124,7 @@
 
 (defn parse-account [scanned-account]
   (loop [account-digits [] scanned-account scanned-account]
-    (if (= ['() '() '()] scanned-account)
+    (if (every? empty? scanned-account)
       (apply str account-digits)
       (recur (conj account-digits (parse-number (head-digit scanned-account)))
              (tail-digits scanned-account)))))
