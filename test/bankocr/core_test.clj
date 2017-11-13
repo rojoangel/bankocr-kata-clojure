@@ -112,17 +112,20 @@
                             "|_|"
                             ])))))
 
+(defn- head-digit [scanned-account]
+  (conj []
+        (apply str (take 3 (first scanned-account)))
+        (apply str (take 3 (second scanned-account)))
+        (apply str (take 3 (last scanned-account)))))
+
 (defn parse-account [scanned-account]
   (loop [account "" scanned-account scanned-account]
-    (let [first-line (apply str (take 3 (first scanned-account)))
-          second-line (apply str (take 3 (second scanned-account)))
-          third-line (apply str (take 3 (last scanned-account)))]
-      (if (= ['() '() '()] scanned-account)
-        account
-        (recur (str account (parse-number [first-line second-line third-line]))
-               [(drop 3 (first scanned-account))
-                (drop 3 (second scanned-account))
-                (drop 3 (last scanned-account))])))))
+    (if (= ['() '() '()] scanned-account)
+      account
+      (recur (str account (parse-number (head-digit scanned-account)))
+             [(drop 3 (first scanned-account))
+              (drop 3 (second scanned-account))
+              (drop 3 (last scanned-account))]))))
 
 (deftest account-number-reading
   (testing "reads an account number"
