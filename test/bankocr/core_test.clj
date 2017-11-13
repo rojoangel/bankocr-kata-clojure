@@ -118,14 +118,18 @@
         (apply str (take 3 (second scanned-account)))
         (apply str (take 3 (last scanned-account)))))
 
+(defn- tail-digits [scanned-account]
+  (conj []
+        (drop 3 (first scanned-account))
+        (drop 3 (second scanned-account))
+        (drop 3 (last scanned-account))))
+
 (defn parse-account [scanned-account]
   (loop [account "" scanned-account scanned-account]
     (if (= ['() '() '()] scanned-account)
       account
       (recur (str account (parse-number (head-digit scanned-account)))
-             [(drop 3 (first scanned-account))
-              (drop 3 (second scanned-account))
-              (drop 3 (last scanned-account))]))))
+             (tail-digits scanned-account)))))
 
 (deftest account-number-reading
   (testing "reads an account number"
